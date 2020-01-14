@@ -4,34 +4,17 @@ shinyServer(function(input, output) {
   
   murder_map_df = reactive({
     
-    #Filter dataset by victim gender as selected by the user in the genderCheckGroup
-    if(is.null(input$ageCheckGroup)){
-      murder_map_df = murder_database
-    } else {
-      murder_map_df = murder_database %>% filter(., `Victim Age` %in% input$ageCheckGroup)
-    }
-    
-    #Filter dataset by victim age as selected by the user in the ageCheckGroup
-    #if(is.null(input$ageCheckGroup)){
-     # murder_map_df = murder_map_df
-    #} else {
-    #  murder_map_df = murder_map_df %>% filter(., `Victim Age` %in% input$ageCheckGroup)
-    #}
-    
-    #Filter dataset by year as selected by the user in the yearSlider
+    #Filter dataset by year, gender, age, and weapon, as selected by the user
     #Group dataset by State and create outputs to be used to color the map
+    ### TO DO: Figure out how to deal with the use case when no boxes are selected
     murder_map_df = 
-      murder_map_df %>% 
+      murder_database %>% 
       filter(., between(Year, input$yearSlider[1], input$yearSlider[2])) %>% 
-      group_by(., State, `Victim Age`) %>% 
+      filter(., `Victim Sex` %in% input$genderCheckGroup) %>% 
+      filter(., Victim_Age_Category %in% input$ageCheckGroup) %>% 
+      filter(., `Weapon` %in% input$methodCheckGroup) %>%
+      group_by(., State) %>% 
       summarise(., log_murders=log(sum(Incident)), total_murders = sum(Incident))
-    
-    #murder_map_df = 
-      #murder_database %>% 
-      #filter(., between(Year, input$yearSlider[1], input$yearSlider[2])) %>% 
-      #filter(., `Victim Sex` %in% ifelse(is.null(input$genderCheckGroup), victim.genders, input$genderCheckGroup)) %>% 
-      #group_by(., State) %>% 
-      #summarise(., log_murders = log(sum(Incident)), total_murders = sum(Incident))
   })
   
   output$map = renderGvis({

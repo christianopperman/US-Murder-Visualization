@@ -6,6 +6,15 @@ library(googleVis)
 #Import database
 murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/database.csv")
 
+murder_database = murder_database %>% 
+  mutate(., `Victim_Age_Category` = 
+           ifelse(`Victim Age`<=10, "0-10",
+                  ifelse(`Victim Age`<=20, "11-20",
+                         ifelse(`Victim Age`<=30, "21-30",
+                                ifelse(`Victim Age`<=40, "31-40",
+                                       ifelse(`Victim Age`<=50, "41-50",
+                                              ifelse(`Victim Age`<=60, "61-70", "70+")))))))
+
 #Define generic US map
 state_stat <- data.frame(state.name = rownames(state.x77), state.x77)
 
