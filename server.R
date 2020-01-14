@@ -14,7 +14,7 @@ shinyServer(function(input, output) {
       filter(., Victim_Age_Category %in% if(is.null(input$ageCheckGroup)){victim.ages} else {input$ageCheckGroup}) %>% 
       filter(., `Weapon` %in% if(is.null(input$methodCheckGroup)){murder.methods} else {input$methodCheckGroup}) %>%
       group_by(., State) %>% 
-      summarise(., "Log of Murders"=log(sum(Incident)), "Log of Murders.html.tooltip" = sum(Incident))
+      summarise(., "Log of Murders"=log(sum(`Total Victims`)), "Log of Murders.html.tooltip" = sum(`Total Victims`))
   })
   
   #Output a map color coded by the total number of murders committed that match the criteria as selected above
