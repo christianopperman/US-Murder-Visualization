@@ -33,7 +33,17 @@ shinyUI(dashboardPage(skin = "black",
   # Define body with tabs to be selected in the sidebar
   dashboardBody(
     tabItems(
+      
+      #Define tab that contains the landing page map, which visualizes the number of murders by type,
+      #victime age, and victim gender on a map of the United States using googleVis
       tabItem(tabName = "maps",
+              #Row that contains summary info boxes
+              fluidRow(
+                infoBoxOutput("maxBox"),
+                infoBoxOutput("avgBox")
+                ),
+              
+              #Row that contains map visualization and selection criteria
               fluidRow(
                 column(8, box(htmlOutput("map"), position = "center", height = "auto", width = "auto")),
                 column(2,
@@ -58,12 +68,12 @@ shinyUI(dashboardPage(skin = "black",
                                           selected = murder.methods)
                        )
               ),
-              fluidRow(
-                column(8,
+              
+              #Row that includes selection for whether to color the map by total murders or murders per 1000 people
+              fluidRow(column(8,
                        radioButtons("chartDisplay", label = "Display murders by:", 
-                                    choices = list("Total Murders" = "totalvictims", "Murders Per Capita" = "victimspercapita"),
-                                    selected = "totalvictims", inline = TRUE, width = "100%")
-                       )
+                                    choices = list("Total Murders" = "totalvictims", "Murders per 1,000 People" = "victimsper1kpeople"),
+                                    selected = "totalvictims", inline = TRUE, width = "100%"))
               )
             ),
       tabItem(tabName = "murderprofile",

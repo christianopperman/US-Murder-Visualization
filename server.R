@@ -15,14 +15,17 @@ shinyServer(function(input, output) {
       filter(., `Weapon` %in% if(is.null(input$methodCheckGroup)){murder.methods} else {input$methodCheckGroup}) %>%
       filter(., State !="District of Columbia") %>% 
       group_by(., State) %>% 
-      summarise(., totalvictims = sum(`Total Victims`), victimspercapita = round(sum(`Total Victims`)/mean(Population.in.1000s)))
+      summarise(., totalvictims = sum(`Total Victims`), 
+                victimsper1kpeople = sum(`Total Victims`)/mean(Population.in.1000s), 
+                roundedvictimsper1kpeople = round(sum(`Total Victims`)/mean(Population.in.1000s)))
   })
   
-  #Output a map color coded by the total number of murders committed that match the criteria as selected above
+  #Output a map color coded by the total number of murders committed that match the criteria as selected
   output$map = renderGvis({
     gvisGeoChart(murder_map_df(),
                  locationvar = "State",
                  colorvar = input$chartDisplay,
+                 #hovervar = list('roundedvictimsper1kpeople'),
                  options=list(region="US",
                               displayMode="regions",
                               resolution="provinces",
@@ -30,4 +33,21 @@ shinyServer(function(input, output) {
                               colorAxis = "{colors: ['white', 'red']}")
                  )
   })
+  
+  #Output an infobox providing the U.S. state that matches the criteria as selected with the most murders
+  output$maxBox = renderInfoBox({
+    max_state = murder_map_df()$State[murder_map_df()$roundedvictimsper1kpeople == max(murder_map_df()$roundedvictimsper1kpeople)]
+    infoBox(title = "Most Murderous State", subtitle = "(Murders per 1,000 people)", 
+            value = max_state, icon = icon("long-arrow-alt-up"), color = "black", width = "100%"
+            )
+  })
+  
+  #Output an infobox providing the U.S. state that matches the criteria as selected with the most murders
+  output$avgBox = renderInfoBox({
+    avg_murders = round(mean(murder_map_df()$roundedvictimsper1kpeople), digits = 2)
+    infoBox(title = "Average Murders", subtitle = "(Murders per 1,000 people)", 
+            value = avg_murders, icon = icon("balance-scale"), color = "black", width = "100%"
+            )
+  })
+  
 })
