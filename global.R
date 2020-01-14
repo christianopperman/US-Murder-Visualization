@@ -17,7 +17,7 @@ murder_database = murder_database %>%
                                               ifelse(`Victim Age`<=60, "61-70", "70+")))))))
 
 murder_database = inner_join(murder_database, statepop_by_year, by = c("State", "Year")) %>%
-  mutate(., `Total Victims` = `Victim Count` + `Incident`) %>% 
+  mutate(., `Total Victims` = `Victim Count` + 1) %>% 
   select(., -`Record ID`, -`Agency Code`, -`Agency Name`, -`Agency Type`, -`Victim Ethnicity`, -`Record Source`, -`Incident`, -`Victim Count`)
 
 #Define generic US map

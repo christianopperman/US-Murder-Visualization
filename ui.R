@@ -57,6 +57,13 @@ shinyUI(dashboardPage(skin = "black",
                                           choices = murder.methods,
                                           selected = murder.methods)
                        )
+              ),
+              fluidRow(
+                column(8,
+                       radioButtons("chartDisplay", label = "Display murders by:", 
+                                    choices = list("Total Murders" = "totalvictims", "Murders Per Capita" = "victimspercapita"),
+                                    selected = "totalvictims", inline = TRUE, width = "100%")
+                       )
               )
             ),
       tabItem(tabName = "murderprofile",
