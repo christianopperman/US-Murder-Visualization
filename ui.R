@@ -20,7 +20,8 @@ shinyUI(dashboardPage(skin = "black",
   # Define sidebar with relevant tab options for navigation
   dashboardSidebar(
     sidebarUserPanel("Christian Opperman",
-                     subtitle = "Fellow @ NYCDSA"),
+                     subtitle = "Fellow @ NYCDSA",
+                     image = "Me.jpg"),
     
     sidebarMenu(
       menuItem("Murder Maps", tabName = "maps", icon = icon("globe-americas")),
@@ -35,9 +36,9 @@ shinyUI(dashboardPage(skin = "black",
     tabItems(
       
       #Define tab that contains the landing page map, which visualizes the number of murders by type,
-      #victime age, and victim gender on a map of the United States using googleVis
+      #victim age, and victim gender on a map of the United States using googleVis
       tabItem(tabName = "maps",
-              #Row that contains summary info boxes
+              #Row that contains summary info boxes displaying most murderous state and the average murders (both in murders/1000 people)
               fluidRow(
                 infoBoxOutput("maxBox"),
                 infoBoxOutput("avgBox")
