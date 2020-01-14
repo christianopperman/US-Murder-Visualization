@@ -7,7 +7,7 @@ shinyUI(dashboardPage(skin = "black",
   dashboardHeader(
     title="Murders in the U.S.",
     tags$li("Christian Opperman", 
-            style = "padding-right: 15px; padding-top: 15px; font-weight: bold; font-size: 13px; color: white",
+            style = "padding-right: 15px; padding-top: 15px; font-weight: bold; font-size: 13px",
             class = "dropdown"),
     tags$li(a(href="https://github.com/christianopperman", icon("github-square")),
             style = "font-size: 20px",

@@ -14,14 +14,14 @@ shinyServer(function(input, output) {
       filter(., Victim_Age_Category %in% if(is.null(input$ageCheckGroup)){victim.ages} else {input$ageCheckGroup}) %>% 
       filter(., `Weapon` %in% if(is.null(input$methodCheckGroup)){murder.methods} else {input$methodCheckGroup}) %>%
       group_by(., State) %>% 
-      summarise(., log_murders=log(sum(Incident)), total_murders = sum(Incident))
+      summarise(., "Log of Murders"=log(sum(Incident)), "Total Murders" = sum(Incident))
   })
   
   #Output a map color coded by the total number of murders committed that match the criteria as selected above
   output$map = renderGvis({
     gvisGeoChart(murder_map_df(),
                  locationvar = "State",
-                 colorvar = "total_murders",
+                 colorvar = "Log of Murders",
                  #hovervar = "total_murders",
                  options=list(region="US",
                               displayMode="regions",
