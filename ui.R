@@ -1,7 +1,7 @@
 library(shiny)
 library(shinydashboard)
 
-shinyUI(dashboardPage(skin = "purple",
+shinyUI(dashboardPage(skin = "black",
   
   # Define header with app title, author name, and links to GitHub and LinkedIn accounts
   dashboardHeader(

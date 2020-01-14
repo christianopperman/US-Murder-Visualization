@@ -4,19 +4,20 @@ shinyServer(function(input, output) {
   
   murder_map_df = reactive({
     
-    #Filter dataset by year, gender, age, and weapon, as selected by the user
+    #Filter dataset by year, gender, age, and weapon, as selected by the user.
+    #If no selection is made for a category, that category is treated as being fully selected
     #Group dataset by State and create outputs to be used to color the map
-    ### TO DO: Figure out how to deal with the use case when no boxes are selected
     murder_map_df = 
       murder_database %>% 
       filter(., between(Year, input$yearSlider[1], input$yearSlider[2])) %>% 
-      filter(., `Victim Sex` %in% input$genderCheckGroup) %>% 
-      filter(., Victim_Age_Category %in% input$ageCheckGroup) %>% 
-      filter(., `Weapon` %in% input$methodCheckGroup) %>%
+      filter(., `Victim Sex` %in% if(is.null(input$genderCheckGroup)){victim.genders} else {input$genderCheckGroup}) %>% 
+      filter(., Victim_Age_Category %in% if(is.null(input$ageCheckGroup)){victim.ages} else {input$ageCheckGroup}) %>% 
+      filter(., `Weapon` %in% if(is.null(input$methodCheckGroup)){murder.methods} else {input$methodCheckGroup}) %>%
       group_by(., State) %>% 
       summarise(., log_murders=log(sum(Incident)), total_murders = sum(Incident))
   })
   
+  #Output a map color coded by the total number of murders committed that match the criteria as selected above
   output$map = renderGvis({
     gvisGeoChart(murder_map_df(),
                  locationvar = "State",
