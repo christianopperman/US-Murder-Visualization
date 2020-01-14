@@ -4,8 +4,8 @@ library(ggplot2)
 library(googleVis)
 
 #Import database
-murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/database.csv")
-statepop_by_year = fread(file="~/Desktop/NYCDSA/Projects/ShinyMurderApp/state_populations_by_year.csv")
+murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/database.csv")
+statepop_by_year = fread(file="~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/state_populations_by_year.csv")
 
 murder_database = murder_database %>% 
   mutate(., `Victim_Age_Category` = 

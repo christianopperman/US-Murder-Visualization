@@ -1,9 +1,9 @@
-state_abbreviations = read.csv(file = '~/Downloads/data.csv')
-state_file_list = paste('~/Downloads/State Populations/', list.files(path = '~/Downloads/State Populations/', pattern = '*.csv'), sep='')
+state_abbreviations = read.csv(file = '~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/StateCodeData.csv')
+state_file_list = paste('~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/State Populations/', list.files(path = '~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/State Populations/', pattern = '*.csv'), sep='')
 
 #Define a function to extract the state abbreviation from a filepath (**** from './names/yob****.txt)
 extract_state = function(filepath){    
-  substr(filepath, 31, 32)
+  substr(filepath, 65, 66)
 }
 
 #Define a function to read a single file and returns an appropriately formatted dataframe
@@ -26,5 +26,5 @@ aggregated_population_df =
   filter(., Year >= 1980 & Year <= 2014)
 
 #Write the file to a CSV file to be used in the Shiny App
-write.csv(aggregated_population_df, file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/state_populations_by_year.csv", row.names=F)
+write.csv(aggregated_population_df, file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/state_populations_by_year.csv", row.names=F)
 View(aggregated_population_df)
