@@ -26,7 +26,7 @@ shinyUI(dashboardPage(skin = "black",
     sidebarMenu(
       menuItem("Murder Maps", tabName = "maps", icon = icon("globe-americas")),
       menuItem("Your Murder Profile", tabName = "murderprofile", icon = icon("skull")),
-      menuItem("Regressions", tabName = "regressions", icon = icon("chart-line")),
+      menuItem("Regressions and Graphs", tabName = "regressions", icon = icon("chart-line")),
       menuItem("Data", tabName = "data", icon = icon("table"))
     )
   ),
@@ -41,6 +41,7 @@ shinyUI(dashboardPage(skin = "black",
               #Row that contains summary info boxes displaying most murderous state and the average murders (both in murders/1000 people)
               fluidRow(
                 infoBoxOutput("maxBox"),
+                infoBoxOutput("minBox"),
                 infoBoxOutput("avgBox")
                 ),
               
@@ -77,12 +78,17 @@ shinyUI(dashboardPage(skin = "black",
                                     selected = "totalvictims", inline = TRUE, width = "100%"))
               )
             ),
+      
       tabItem(tabName = "murderprofile",
               "To be replaced with an interface where the user can select their profile characteristics and see where/how they are most likely to be murdered"),
+      
       tabItem(tabName = "regressions",
               "To be replaced with regression analysis of the dataset"),
+      
       tabItem(tabName = "data",
-              "To be replaced with the dataset used in the Shiny App (possibly reactive?)")
+              fluidRow(
+                box(DT::dataTableOutput("table"), width = 12))
+              )
     )
   )
 ))

@@ -2,6 +2,7 @@ library(data.table)
 library(dplyr)
 library(ggplot2)
 library(googleVis)
+library(DT)
 
 #Import database
 murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/database.csv")
@@ -18,8 +19,7 @@ murder_database = murder_database %>%
                                                     ifelse(`Victim Age` <= 69, "60-69", "70+"))))))))
 
 murder_database = inner_join(murder_database, statepop_by_year, by = c("State", "Year")) %>%
-  mutate(., `Total Victims` = `Victim Count` + 1) %>% 
-  select(., -`Record ID`, -`Agency Code`, -`Agency Name`, -`Agency Type`, -`Victim Ethnicity`, -`Record Source`, -`Incident`, -`Victim Count`)
+  select(., -`Record ID`, -`Agency Code`, -`Agency Name`, -`Agency Type`, -`Victim Ethnicity`, -`Record Source`, -`Incident`, -`Victim Count`, -`Perpetrator Count`, -`Perpetrator Ethnicity`, -`Crime Type`)
 
 #Define generic US map
 state_stat <- data.frame(state.name = rownames(state.x77), state.x77)

@@ -11,14 +11,16 @@ shinyServer(function(input, output) {
       murder_database %>% 
       filter(., between(Year, input$yearSlider[1], input$yearSlider[2])) %>% 
       filter(., `Victim Sex` %in% if(is.null(input$genderCheckGroup)){victim.genders} else {input$genderCheckGroup}) %>% 
-      filter(., Victim_Age_Category %in% if(is.null(input$ageCheckGroup)){victim.ages} else {input$ageCheckGroup}) %>% 
+      filter(., `Victim_Age_Category` %in% if(is.null(input$ageCheckGroup)){victim.ages} else {input$ageCheckGroup}) %>% 
       filter(., `Weapon` %in% if(is.null(input$methodCheckGroup)){murder.methods} else {input$methodCheckGroup}) %>%
       filter(., State !="District of Columbia") %>% 
       group_by(., State) %>% 
-      summarise(., totalvictims = sum(`Total Victims`, na.rm = TRUE), 
-                victimsper1kpeople = sum(`Total Victims`, na.rm = TRUE)/mean(Population.in.1000s, na.rm = TRUE), 
-                roundedvictimsper1kpeople = round(sum(`Total Victims`, na.rm = TRUE)/mean(Population.in.1000s, na.rm = TRUE)))
+      summarise(., totalvictims = n(), 
+                victimsper1kpeople = n()/mean(Population.in.1000s, na.rm = TRUE), 
+                roundedvictimsper1kpeople = round(n()/mean(Population.in.1000s, na.rm = TRUE)))
   })
+  
+  ######### Map Visualization Tab #########
   
   #Output a map color coded by the total number of murders committed that match the criteria as selected
   output$map = renderGvis({
@@ -34,7 +36,7 @@ shinyServer(function(input, output) {
                  )
   })
   
-  #Output an infobox providing the U.S. state that matches the criteria as selected with the most murders
+  #Output an infobox providing the U.S. state with the most murders that matches the criteria as selected with the most murders
   output$maxBox = renderInfoBox({
     max_state = murder_map_df()$State[murder_map_df()$victimsper1kpeople == max(murder_map_df()$victimsper1kpeople)]
     infoBox(title = "Most Murderous State", 
@@ -44,12 +46,40 @@ shinyServer(function(input, output) {
             )
   })
   
+  #Output an infobox providing the U.S. state with the least murders that matches the criteria as selected with the most murders
+  output$minBox = renderInfoBox({
+    max_state = murder_map_df()$State[murder_map_df()$victimsper1kpeople == min(murder_map_df()$victimsper1kpeople)]
+    infoBox(title = "Least Murderous State", 
+            subtitle = paste("(", round(min(murder_map_df()$victimsper1kpeople), digits = 2), " murders per 1,000 people)", sep =""),
+            value = max_state, color = "black", width = "100%",
+            icon = icon("long-arrow-alt-down")
+    )
+  })
+  
   #Output an infobox providing the U.S. state that matches the criteria as selected with the most murders
   output$avgBox = renderInfoBox({
     avg_murders = round(mean(murder_map_df()$victimsper1kpeople), digits = 2)
     infoBox(title = "Average Murders per 1,000 people", 
             value = avg_murders, icon = icon("balance-scale"), color = "black", width = "100%"
             )
+  })
+  
+  ######### Data Table Tab #########
+  
+  #In progress
+  
+  ######### Data Table Tab #########
+  
+  #In progress
+  
+  ######### Data Table Tab #########
+  
+  output$table = DT::renderDataTable({
+    murder_database %>%
+      select(., Year, Month, State, City, `Weapon`, 
+             `Victim Sex`, `Victim Age`, `Victim Race`, 
+             `Perpetrator Sex`, `Perpetrator Age`, `Perpetrator Race`,
+             `Relationship`, -Population.in.1000s, -Victim_Age_Category)
   })
   
 })
