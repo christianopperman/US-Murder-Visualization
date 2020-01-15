@@ -92,13 +92,29 @@ shinyUI(dashboardPage(skin = "black",
       #Define tab that contains a table of the data
       tabItem(tabName = "data",
               fluidRow(
-                box(DT::dataTableOutput("table"), width = 12))
-              
-              #Possible to-do: add filters for the data table?
+                box(
+                  width = 12, 
+                  dataTableOutput("table")))
               ),
       
       tabItem(tabName = "about",
-              "To be replaced with information about the dataset and about me")
+              fluidRow(
+                column(8, 
+                       "To be replaced with information about the dataset"),
+                column(4, align = "center",
+                       tags$img(src = "Me.jpg", width = "50%", style="border-radius: 50%"),
+                       tags$br(), tags$br(),
+                       tags$h4("About the Creator"),
+                       tags$p("Christian Opperman is a data scientist and analyst based in New York City. 
+                               Originally from South Africa, he was raised in the Bay Area, California, and after
+                               college lived in Tokyo, Japan, working in the energy sector, for a number of years
+                               before moving back to the U.S."),
+                       tags$br(),
+                       tagList("Please feel free to explore Christian's ", tags$a("GitHub Account", href = "https://github.com/christianopperman"), 
+                              "or ", tags$a("LinkedIn Profile", href = "https://www.linkedin.com/in/christian-opperman/"), ".")
+                       )
+                )
+              )
     )
   )
 ))

@@ -72,8 +72,6 @@ shinyServer(function(input, output) {
   
   ######### Data Table Tab #########
   
-  #Possible to-do: add filters for the data table?
-  
   #Restrict which columns from the original data-frame to use
   m1 = murder_database %>%
     select(., Year, Month, State, City, `Weapon`, 
@@ -83,8 +81,7 @@ shinyServer(function(input, output) {
   
   output$table = DT::renderDT(m1,
                               filter = list(position = "top", clear = FALSE, plain = FALSE),
-                              options = list(pageLength = 10)
-                              )
+                              options = list(pageLength = 10))
   
   ######### About Tab #########
   
