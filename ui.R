@@ -27,7 +27,8 @@ shinyUI(dashboardPage(skin = "black",
       menuItem("Murder Maps", tabName = "maps", icon = icon("globe-americas")),
       menuItem("Your Murder Profile", tabName = "murderprofile", icon = icon("skull")),
       menuItem("Regressions and Graphs", tabName = "regressions", icon = icon("chart-line")),
-      menuItem("Data", tabName = "data", icon = icon("table"))
+      menuItem("Data", tabName = "data", icon = icon("table")),
+      menuItem("About", tabName = "about", icon = icon("info"))
     )
   ),
   
@@ -85,10 +86,16 @@ shinyUI(dashboardPage(skin = "black",
       tabItem(tabName = "regressions",
               "To be replaced with regression analysis of the dataset"),
       
+      #Define tab that contains a table of the data
       tabItem(tabName = "data",
               fluidRow(
                 box(DT::dataTableOutput("table"), width = 12))
-              )
+              
+              #Possible to-do: add filters for the data table?
+              ),
+      
+      tabItem(tabName = "about",
+              "To be replaced with information about the dataset and about me")
     )
   )
 ))

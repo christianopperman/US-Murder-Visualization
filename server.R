@@ -74,12 +74,22 @@ shinyServer(function(input, output) {
   
   ######### Data Table Tab #########
   
-  output$table = DT::renderDataTable({
-    murder_database %>%
-      select(., Year, Month, State, City, `Weapon`, 
-             `Victim Sex`, `Victim Age`, `Victim Race`, 
-             `Perpetrator Sex`, `Perpetrator Age`, `Perpetrator Race`,
-             `Relationship`, -Population.in.1000s, -Victim_Age_Category)
-  })
+  #Possible to-do: add filters for the data table?
+  
+  #Restrict which columns from the original data-frame to use
+  m1 = murder_database %>%
+    select(., Year, Month, State, City, `Weapon`, 
+           `Victim Sex`, `Victim Age`, `Victim Race`, 
+           `Perpetrator Sex`, `Perpetrator Age`, `Perpetrator Race`,
+           `Relationship`, -Population.in.1000s, -Victim_Age_Category)
+  
+  output$table = DT::renderDT(m1,
+                              filter = "top",
+                              options = list(pageLength = 10)
+                              )
+  
+  ######### About Tab #########
+  
+  #In progress
   
 })
