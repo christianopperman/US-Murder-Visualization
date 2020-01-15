@@ -1,6 +1,3 @@
-library(shiny)
-library(shinydashboard)
-
 shinyUI(dashboardPage(skin = "black",
   
   # Define header with app title, author name, and links to GitHub and LinkedIn accounts
@@ -34,6 +31,12 @@ shinyUI(dashboardPage(skin = "black",
   
   # Define body with tabs to be selected in the sidebar
   dashboardBody(
+    
+    #Add custom CSS styling
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+    ),
+    
     tabItems(
       
       #Define tab that contains the landing page map, which visualizes the number of murders by type,

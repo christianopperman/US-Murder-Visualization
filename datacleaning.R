@@ -1,4 +1,4 @@
-state_abbreviations = read.csv(file = '~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/StateCodeData.csv')
+state_abbreviations = read.csv(file = '~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/StateCodeData.csv', stringsAsFactors = T)
 state_file_list = paste('~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/State Populations/', list.files(path = '~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/State Populations/', pattern = '*.csv'), sep='')
 
 #Define a function to extract the state abbreviation from a filepath (**** from './names/yob****.txt)
@@ -8,7 +8,7 @@ extract_state = function(filepath){
 
 #Define a function to read a single file and returns an appropriately formatted dataframe
 read_single_file = function(file){
-  temp_df = read.csv(file=file, header=T, col.names = c('Date', 'Population in 1000s'), stringsAsFactors = F)
+  temp_df = read.csv(file=file, header=T, col.names = c('Date', 'Population in 1000s'), stringsAsFactors = T)
   temp_df$state = extract_state(file) #Calculates the state from the file name and stores it in a column
   temp_df$Year = format(as.Date(temp_df$Date, "%Y-%m-%d"), "%Y")
   return(temp_df)

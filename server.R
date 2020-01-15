@@ -1,5 +1,3 @@
-library(shiny)
-
 shinyServer(function(input, output) {
   
   murder_map_df = reactive({
@@ -84,7 +82,7 @@ shinyServer(function(input, output) {
            `Relationship`, -Population.in.1000s, -Victim_Age_Category)
   
   output$table = DT::renderDT(m1,
-                              filter = "top",
+                              filter = list(position = "top", clear = FALSE, plain = FALSE),
                               options = list(pageLength = 10)
                               )
   

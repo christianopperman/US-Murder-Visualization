@@ -1,3 +1,5 @@
+library(shiny)
+library(shinydashboard)
 library(data.table)
 library(dplyr)
 library(ggplot2)
@@ -6,7 +8,7 @@ library(DT)
 
 #Import database
 murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/database.csv", stringsAsFactors = T)
-statepop_by_year = fread(file="~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/state_populations_by_year.csv")
+statepop_by_year = fread(file="~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/state_populations_by_year.csv", stringsAsFactors = T)
 
 murder_database = murder_database %>% 
   mutate(., `Victim_Age_Category` = 
@@ -21,6 +23,7 @@ murder_database = murder_database %>%
 
 murder_database = inner_join(murder_database, statepop_by_year, by = c("State", "Year")) %>%
   select(., -`Record ID`, -`Agency Code`, -`Agency Name`, -`Agency Type`, -`Victim Ethnicity`, -`Record Source`, -`Incident`, -`Victim Count`, -`Perpetrator Count`, -`Perpetrator Ethnicity`, -`Crime Type`)
+murder_database$State = as.factor(murder_database$State)
 
 #Define generic US map
 state_stat <- data.frame(state.name = rownames(state.x77), state.x77)

@@ -3,3 +3,7 @@
   font-weight: bold;
   font-size: 24px;
 }
+
+td[data-type="factor"] input {
+    width: 50px !important;
+}
