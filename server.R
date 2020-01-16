@@ -92,6 +92,7 @@ function(input, output) {
     gvisPieChart(count_by_gender_df(),
                  labelvar = "Sex", numvar = "Count",
                  options = list(pieHole = "0.25",
+                                chartArea = "{width: '100%', height: '100%'}",
                                 colors = "['#de2d26','#fc9272','#fee0d2']"))
   })
   
@@ -111,6 +112,7 @@ function(input, output) {
   output$racepiechart = renderGvis({
     gvisPieChart(count_by_race_df(), labelvar = "Race", numvar = "Count",
                  options = list(pieHole = "0.25",
+                                chartArea = "{width: '100%', height: '100%'}",
                                 colors = "['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15']"))
   })
   

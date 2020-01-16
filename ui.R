@@ -101,9 +101,13 @@ dashboardPage(skin = "black",
                     fluidRow(
                       column(6, align = "center", "Victim Gender",
                            htmlOutput("genderchart"),
+                           tags$br(),
+                           tags$br(),
                            htmlOutput("genderpiechart")),
                       column(6, align = "center", "Victim Race",
                            htmlOutput("racechart"),
+                           tags$br(),
+                           tags$br(),
                            htmlOutput("racepiechart"))
                   ),
                   fluidRow(
