@@ -84,7 +84,6 @@ shinyServer(function(input, output) {
                               options = list(pageLength = 10))
   
   ######### About Tab #########
-  
-  #In progress
+  #All information 
   
 })

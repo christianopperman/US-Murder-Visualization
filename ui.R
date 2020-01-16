@@ -97,24 +97,73 @@ shinyUI(dashboardPage(skin = "black",
                   dataTableOutput("table")))
               ),
       
+      #Define tab that contains information about the data set and myself
       tabItem(tabName = "about",
+              box(width = 12,
               fluidRow(
-                column(8, 
-                       "To be replaced with information about the dataset"),
+                column(8, align = "center", style = "margin-top: 50px",
+                         tags$img(src = "MurderAccountabilityProject.png",
+                                  width = "50%")
+                       ),
                 column(4, align = "center",
-                       tags$img(src = "Me.jpg", width = "50%", style="border-radius: 50%"),
-                       tags$br(), tags$br(),
-                       tags$h4("About the Creator"),
-                       tags$p("Christian Opperman is a data scientist and analyst based in New York City. 
+                       tags$img(src = "Me.jpg",
+                                width = "50%",
+                                style="border-radius: 50%")
+                       )
+              ),
+              fluidRow(
+                #Column describing the underlying data
+                column(8, align = "center",
+                       tagList(#tags$br(),
+                         #tags$br(),
+                         tags$h4("About the Data"),
+                         tags$br(),
+                         "The data for this project was primarily sourced from the ",
+                         tags$a("Murder Accountability Project", href = "http://www.murderdata.org/"),
+                         ", a non-profit organization that tracks homicide reports in the United States of America, 
+                         with particular focus on unsolved homicides.",
+                         tags$br(),
+                         tags$br(),
+                         "The dataset upon which the majority of the underlying analysis rests on the Murder Accountability 
+                         Project's data of homicides from 1980 through 2014. The dataset can be found on Kaggle ",
+                         tags$a("here", href = "https://www.kaggle.com/murderaccountability/homicide-reports"),
+                         ". That data in turn was sourced from the FBI's Supplementary Homicide Report (covering 1976 to 
+                         the present day) and numerous Freedom of Information Act requests. The factors in the data are based 
+                         on the FBI report's structure; that report as well as the documentation for it, which explains the 
+                         factor naming conventions, can be accessed ",
+                         tags$a("here", href = "http://www.murderdata.org/p/data-docs.html"),
+                         ".",
+                         tags$br(),
+                         tags$br(),
+                         "Finally, to aid in visualization and to normalize data by state population (in other words, to provide 
+                         data on murders per every one-thousand people), U.S. state population data was sourced from the Federal 
+                         Reserve Economic Data databases, compiled by the Bank of St. Louis Economic Research based on data sourced 
+                         from the U.S. Census Bureau. A list of U.S. states with their resepective population data can be accessed ",
+                         tags$a("here", href = "https://fred.stlouisfed.org/release/tables?rid=118&eid=259194"),
+                         "."
+                         )
+                       ),
+                #Column describing myself
+                column(4, align = "center",
+                       tagList(#tags$br(),
+                               #tags$br(),
+                               tags$h4("About the Creator"),
+                               tags$br(),
+                               "Christian Opperman is a data scientist and analyst based in New York City. 
                                Originally from South Africa, he was raised in the Bay Area, California, and after
                                college lived in Tokyo, Japan, working in the energy sector, for a number of years
-                               before moving back to the U.S."),
-                       tags$br(),
-                       tagList("Please feel free to explore Christian's ", tags$a("GitHub Account", href = "https://github.com/christianopperman"), 
-                              "or ", tags$a("LinkedIn Profile", href = "https://www.linkedin.com/in/christian-opperman/"), ".")
+                               before moving back to the U.S.", 
+                               tags$br(),
+                               tags$br(),
+                               "Please feel free to explore Christian's ",
+                               tags$a("GitHub Account", href = "https://github.com/christianopperman"), 
+                              "or ", 
+                              tags$a("LinkedIn Profile", href = "https://www.linkedin.com/in/christian-opperman/"), 
+                              ".")
                        )
                 )
               )
+      ))
     )
   )
-))
+)
