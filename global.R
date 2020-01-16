@@ -5,6 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(googleVis)
 library(DT)
+#library(shinyjs)
 
 #Import database
 murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/database.csv", stringsAsFactors = T)

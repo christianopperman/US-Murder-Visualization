@@ -1,10 +1,9 @@
-shinyServer(function(input, output) {
+function(input, output) {
   
+  #Filter dataset by year, gender, age, and weapon, as selected by the user.
+  #If no selection is made for a category, that category is treated as being fully selected
+  #Group dataset by State and create outputs to be used to color the map
   murder_map_df = reactive({
-    
-    #Filter dataset by year, gender, age, and weapon, as selected by the user.
-    #If no selection is made for a category, that category is treated as being fully selected
-    #Group dataset by State and create outputs to be used to color the map
     murder_map_df = 
       murder_database %>% 
       filter(., between(Year, input$yearSlider[1], input$yearSlider[2])) %>% 
@@ -16,6 +15,11 @@ shinyServer(function(input, output) {
       summarise(., totalvictims = n(), 
                 victimsper1kpeople = n()/mean(Population.in.1000s, na.rm = TRUE), 
                 roundedvictimsper1kpeople = round(n()/mean(Population.in.1000s, na.rm = TRUE)))
+  })
+  
+  regression_df = reactive({
+    regression_df = murder_database %>% 
+      select(., `State`, `Crime Solved`,starts_with(input$graphvariable),  `Weapon`, `Relationship`)
   })
   
   ######### Map Visualization Tab #########
@@ -62,13 +66,17 @@ shinyServer(function(input, output) {
             )
   })
   
-  ######### Data Table Tab #########
+  ######### Murder Profile Tab #########
   
   #In progress
   
-  ######### Data Table Tab #########
+  ######### Regressions and Graphs Tab #########
   
-  #In progress
+  #Placeholder graph output
+  
+  output$regressiontable = DT::renderDT(regression_df(),
+                                        filter = list(position = "top", clear = FALSE, plain = FALSE),
+                                        options = list(pageLength = 10))
   
   ######### Data Table Tab #########
   
@@ -86,4 +94,4 @@ shinyServer(function(input, output) {
   ######### About Tab #########
   #All information 
   
-})
+}

@@ -1,8 +1,8 @@
-shinyUI(dashboardPage(skin = "black",
+dashboardPage(skin = "black",
   
   # Define header with app title, author name, and links to GitHub and LinkedIn accounts
   dashboardHeader(
-    title="Murders in the U.S.",
+    title="U.S. Murders",
     tags$li("Christian Opperman", 
             style = "padding-right: 15px; padding-top: 15px; font-weight: bold; font-size: 13px",
             class = "dropdown"),
@@ -20,18 +20,23 @@ shinyUI(dashboardPage(skin = "black",
                      subtitle = "Fellow @ NYCDSA",
                      image = "Me.jpg"),
     
-    sidebarMenu(
+    sidebarMenu(id = "sidebar",
       menuItem("Murder Maps", tabName = "maps", icon = icon("globe-americas")),
       menuItem("Your Murder Profile", tabName = "murderprofile", icon = icon("skull")),
       menuItem("Regressions and Graphs", tabName = "regressions", icon = icon("chart-line")),
+      shiny::conditionalPanel(condition="input.sidebar == 'regressions'",
+                              selectizeInput("graphvariable",
+                                             "Select Analysis Variable:",
+                                             c('Victim', 'Perpetrator'))
+                              ),
       menuItem("Data", tabName = "data", icon = icon("table")),
       menuItem("About", tabName = "about", icon = icon("info"))
+      
     )
   ),
   
   # Define body with tabs to be selected in the sidebar
   dashboardBody(
-    
     #Add custom CSS styling
     tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
@@ -83,11 +88,18 @@ shinyUI(dashboardPage(skin = "black",
               )
             ),
       
+      #Define tab that contains an interactive user experience to profile where and how a user may get murdered
       tabItem(tabName = "murderprofile",
-              "To be replaced with an interface where the user can select their profile characteristics and see where/how they are most likely to be murdered"),
+              box(width = 12, 
+                  "To be replaced with an interface where the user can select their profile characteristics and see where/how they are most likely to be murdered")),
       
+      #Define tab that contains various graphs of the data showing relationships between variables
       tabItem(tabName = "regressions",
-              "To be replaced with regression analysis of the dataset"),
+              fluidRow(
+                box(
+                  width = 12,
+                  dataTableOutput("regressiontable")))
+              ),
       
       #Define tab that contains a table of the data
       tabItem(tabName = "data",
@@ -166,4 +178,3 @@ shinyUI(dashboardPage(skin = "black",
       ))
     )
   )
-)
