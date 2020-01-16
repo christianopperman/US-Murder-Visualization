@@ -91,15 +91,34 @@ dashboardPage(skin = "black",
       #Define tab that contains an interactive user experience to profile where and how a user may get murdered
       tabItem(tabName = "murderprofile",
               box(width = 12, 
-                  "To be replaced with an interface where the user can select their profile characteristics and see where/how they are most likely to be murdered")),
+                  "To be replaced with an interface where the user can select their profile 
+                  characteristics and see where/how they are most likely to be murdered")),
       
       #Define tab that contains various graphs of the data showing relationships between variables
       tabItem(tabName = "regressions",
-              fluidRow(
-                box(
-                  width = 12,
-                  dataTableOutput("regressiontable")))
-              ),
+              box(width = 12,
+                  fluidRow(
+                    fluidRow(
+                      column(6, align = "center", "Victim Gender",
+                           htmlOutput("genderchart"),
+                           htmlOutput("genderpiechart")),
+                      column(6, align = "center", "Victim Race",
+                           htmlOutput("racechart"),
+                           htmlOutput("racepiechart"))
+                  ),
+                  fluidRow(
+                    column(12, align = "center", "Murder Method",
+                           htmlOutput("weaponchart"))
+                  )
+                  )
+              )),
+      
+      
+      #fluidRow(
+       # column(6, align = "center",
+        #       htmlOutput("weaponchart")),
+        #column(6, align = "center", 
+         #      htmlOutput("statechart"))),
       
       #Define tab that contains a table of the data
       tabItem(tabName = "data",
