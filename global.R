@@ -5,6 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(googleVis)
 library(DT)
+library(tidyr)
 #library(shinyjs)
 
 #Import database
@@ -32,4 +33,5 @@ state_stat <- data.frame(state.name = rownames(state.x77), state.x77)
 #Define choice selections for map visualization
 victim.genders = unique(murder_database$`Victim Sex`)
 victim.ages = c('0-9', '10-19', '20-29', '30-39','40-49', '50-59', '60-69', '70+', 'Unknown')
+victim.races = unique(murder_database$`Victim Race`)
 murder.methods = sort(unique(murder_database$Weapon))

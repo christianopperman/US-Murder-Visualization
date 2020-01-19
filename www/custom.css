@@ -7,3 +7,7 @@
 td[data-type="factor"] input {
     width: 50px !important;
 }
+
+a {
+  color: #de2d26;
+}
