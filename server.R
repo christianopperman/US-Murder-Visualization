@@ -138,7 +138,6 @@ function(input, output) {
   
   
   
-  
   ######### Graphs Tab ########
   ###Murder Rate Tabset
   #Segement dataset by year and calculate total number of murders each year
@@ -155,6 +154,7 @@ function(input, output) {
                                  titleTextStyle = "{fontSize: 14}",hAxis = "{showTextEvery: 2,
                                  format: '0',
                                  ticks: data.getDistinctValues(0)}",
+                                 width= "92%",
                                  colors = "['#de2d26']"))
   })
   
@@ -171,6 +171,7 @@ function(input, output) {
                   yvar = colnames(yearly_murders_by_weapon_df)[-1],
                   options = list(title = "Annual Murders - by Method",
                                  titleTextStyle = "{fontSize: 14}",
+                                 height = "500px",
                                  hAxis = "{showTextEvery: 2,
                                  format: '0',
                                  ticks: data.getDistinctValues(0)}",
@@ -188,7 +189,9 @@ function(input, output) {
     gvisLineChart(yearly_murders_by_state_df,
                   xvar = "Year",
                   yvar = colnames(yearly_murders_by_state_df)[-1],
-                  options = list(title = "Annual Murders - by State",
+                  options = list(height = "500px",
+                                 width = "100%",
+                                 title = "Annual Murders - by State",
                                  titleTextStyle = "{fontSize: 14}",
                                  hAxis = "{showTextEvery: 2,
                                  format: '0',
@@ -211,6 +214,7 @@ function(input, output) {
                   yvar = c("Yes", "No"),
                   options = list(title = "Annual Murders - Solved vs. Unsolved Percentages",
                                  titleTextStyle = "{fontSize: 14}",
+                                 width = "92%",
                                  hAxis = "{showTextEvery: 2,
                                  format: '0',
                                  ticks: data.getDistinctValues(0)}",

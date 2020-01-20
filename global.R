@@ -2,15 +2,13 @@ library(shiny)
 library(shinydashboard)
 library(data.table)
 library(dplyr)
-library(ggplot2)
 library(googleVis)
 library(DT)
 library(tidyr)
-#library(shinyjs)
 
 #Import database
-murder_database = fread(file = "~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/database.csv", stringsAsFactors = T)
-statepop_by_year = fread(file="~/Desktop/NYCDSA/Projects/ShinyMurderApp/data/state_populations_by_year.csv", stringsAsFactors = T)
+murder_database = fread(file = "./data/database.csv", stringsAsFactors = T)
+statepop_by_year = fread(file="./data/state_populations_by_year.csv", stringsAsFactors = T)
 
 murder_database = murder_database %>% 
   mutate(., `Victim_Age_Category` = 
