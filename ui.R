@@ -205,7 +205,7 @@ dashboardPage(skin = "black",
                                tags$br(),
                                fluidRow(
                                  align = "center",
-                                 p("Breakdown by Murder Method & Solved Percentage", style = "font-size: 18px")
+                                 p("Solved vs. Unsolved Murders", style = "font-size: 18px")
                                ),
                                fluidRow(column(12, align = "center",
                                                htmlOutput("solvedchart"))
